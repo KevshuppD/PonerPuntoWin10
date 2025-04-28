@@ -1,14 +1,11 @@
-# Verificar si el script se est· ejecutando como administrador
+Ôªø# Verificar si el script se est√° ejecutando como administrador
 $identity = [Security.Principal.WindowsIdentity]::GetCurrent()
 $principal = New-Object Security.Principal.WindowsPrincipal($identity)
 
 if (-not $principal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-    # Si no es administrador, reinicia el script con privilegios elevados
     Start-Process powershell -ArgumentList "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb RunAs
     exit
 }
-
-# Continuar con el cÛdigo del script...
 
 Add-Type -AssemblyName PresentationFramework
 
@@ -16,10 +13,12 @@ Add-Type -AssemblyName PresentationFramework
 $xaml = @"
 <Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         Title="Instalador y Mantenimiento"
-        Width="600" Height="850">
+        Width="650" Height="900">
     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
         <Grid Background="#F5F5F5" Margin="10">
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -34,9 +33,9 @@ $xaml = @"
                        Margin="0,0,0,20" 
                        Grid.Row="0"/>
 
-            <!-- Herramientas de ComunicaciÛn -->
+            <!-- Herramientas de Comunicaci√≥n -->
             <StackPanel Margin="0,10,0,20" Grid.Row="1">
-                <TextBlock Text="Herramientas de ComunicaciÛn" 
+                <TextBlock Text="Herramientas de Comunicaci√≥n" 
                            FontSize="14" FontWeight="Bold" 
                            Margin="0,10,0,5"/>
                 <WrapPanel HorizontalAlignment="Center" Margin="0,10,0,0">
@@ -75,12 +74,13 @@ $xaml = @"
                     <CheckBox Name="OfficeCheck" Content="Microsoft Office" Margin="5"/>
                     <CheckBox Name="FileZillaCheck" Content="FileZilla" Margin="5"/>
                     <CheckBox Name="GitHubDesktopCheck" Content="GitHub Desktop" Margin="5"/>
+                    <CheckBox Name="NotepadppCheck" Content="Notepad++" Margin="5"/>
                 </WrapPanel>
             </StackPanel>
 
             <!-- Herramientas de Juegos -->
             <StackPanel Margin="0,10,0,20" Grid.Row="4">
-                <TextBlock Text="Herramientas de Juegos" 
+                <TextBlock Text="Juegos" 
                            FontSize="14" FontWeight="Bold" 
                            Margin="0,10,0,5"/>
                 <WrapPanel HorizontalAlignment="Center" Margin="0,10,0,0">
@@ -88,59 +88,100 @@ $xaml = @"
                     <CheckBox Name="MinecraftLauncherCheck" Content="Minecraft Launcher" Margin="5"/>
                     <CheckBox Name="SteamCheck" Content="Steam" Margin="5"/>
                     <CheckBox Name="EpicCheck" Content="Epic Games" Margin="5"/>
+                    
                 </WrapPanel>
             </StackPanel>
 
-            <!-- Botones de acciÛn -->
-                <StackPanel Grid.Row="5" Margin="0,20,0,0" HorizontalAlignment="Center">
-                    <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Button Name="InstallButton" Content="Instalar Seleccionados" Width="200" Height="30" Margin="10"/>
-                        <Button Name="CleanButton" Content="Limpiar Archivos Temporales" Width="200" Height="30" Margin="10"/>
-                        <Button Name="DefragButton" Content="Desfragmentar" Width="200" Height="30" Margin="10"/>
-                        <Button Name="HighPerfButton" Content="Habilitar Alto Rendimiento" Width="200" Height="30" Margin="10"/>
-                    </WrapPanel>
+            <!-- Navegadores -->
+            <StackPanel Margin="0,10,0,20" Grid.Row="5">
+                <TextBlock Text="Navegadores" 
+                           FontSize="14" FontWeight="Bold" 
+                           Margin="0,10,0,5"/>
+                <WrapPanel HorizontalAlignment="Center" Margin="0,10,0,0">
+                    <CheckBox Name="ChromeCheck" Content="Google Chrome" Margin="5"/>
+                    <CheckBox Name="FirefoxCheck" Content="Mozilla Firefox" Margin="5"/>
+                    <CheckBox Name="BraveCheck" Content="Brave" Margin="5"/>
+                    <CheckBox Name="OperaGXCheck" Content="Opera GX" Margin="5"/>
+                    <CheckBox Name="EdgeCheck" Content="Microsoft Edge" Margin="5"/>
+                </WrapPanel>
+            </StackPanel>
 
-                    <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
-                        <Button Name="InstallWSLButton" Content="Instalar WSL (Ubuntu)" Width="200" Height="30" Margin="10"/>
-                        <Button Name="CleanWSLButton" Content="Borrar Distro WSL" Width="200" Height="30" Margin="10"/>
-                    </WrapPanel>
-                </StackPanel>
+            <!-- Herramientas √ötiles -->
+            <StackPanel Margin="0,10,0,20" Grid.Row="6">
+                <TextBlock Text="Herramientas √ötiles" 
+                           FontSize="14" FontWeight="Bold" 
+                           Margin="0,10,0,5"/>
+                <WrapPanel HorizontalAlignment="Center" Margin="0,10,0,0">
+                    <CheckBox Name="SevenZipCheck" Content="7-Zip" Margin="5"/>
+                    <CheckBox Name="WinRARCheck" Content="WinRAR" Margin="5"/>
+                    <CheckBox Name="OBSCheck" Content="OBS Studio" Margin="5"/>
+                    <CheckBox Name="CPUIDCheck" Content="CPU-Z" Margin="5"/>
+                    <CheckBox Name="LibreOfficeCheck" Content="LibreOffice" Margin="5"/>
+                </WrapPanel>
+            </StackPanel>
 
+            <!-- Botones de acci√≥n -->
+            <StackPanel Grid.Row="7" Margin="0,20,0,0" HorizontalAlignment="Center">
+                <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button Name="InstallButton" Content="Instalar Seleccionados" Width="200" Height="30" Margin="10"/>
+                    <Button Name="CleanButton" Content="Limpiar Archivos Temporales" Width="200" Height="30" Margin="10"/>
+                    <Button Name="DefragButton" Content="Desfragmentar" Width="200" Height="30" Margin="10"/>
+                    <Button Name="HighPerfButton" Content="Habilitar Alto Rendimiento" Width="200" Height="30" Margin="10"/>
+                    <Button Name="InstallGamingDepsButton" Content="Instalar Dependencias de Juegos" Width="420" Height="30" Margin="10"/>
+                </WrapPanel>
+
+                <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
+                    <Button Name="InstallWSLButton" Content="Instalar WSL (Ubuntu)" Width="200" Height="30" Margin="10"/>
+                    <Button Name="CleanWSLButton" Content="Borrar Distro WSL" Width="200" Height="30" Margin="10"/>
+                </WrapPanel>
+            </StackPanel>
         </Grid>
     </ScrollViewer>
 </Window>
+
 "@
 
 # Cargar el XAML
 $reader = (New-Object System.Xml.XmlTextReader (New-Object System.IO.StringReader $xaml))
 $window = [Windows.Markup.XamlReader]::Load($reader)
 
-# Lista de aplicaciones y sus identificadores en winget
+# Lista extendida de aplicaciones
 $appList = @{
     "DiscordCheck" = "Discord.Discord"
-    "SteamCheck" = "Valve.Steam"
-    "EpicCheck" = "EpicGames.EpicGamesLauncher"
-    "IntelCheck" = "Intel.IntelDriverAndSupportAssistant"
-    "VSCodeCheck" = "Microsoft.VisualStudioCode"
-    "CplusplusCheck" = "Microsoft.VisualStudio.2019.BuildTools"
-    "NodejsCheck" = "OpenJS.NodeJS"  # Actualizado a la fuente oficial
-    "GitCheck" = "Git.Git"
-    "JavaCheck" = "EclipseAdoptium.Temurin.11.JDK"  # M·s actualizado
-    "PythonCheck" = "Python.Python.3.9"
+    "WhatsAppCheck" = "9NKSQGP7F2NH"
+    "AnyDeskCheck" = "AnyDeskSoftwareGmbH.AnyDesk"
+    "EdgeCheck" = "Microsoft.Edge"
     "AIMPCheck" = "AIMP.AIMP"
     "VLCCheck" = "VideoLAN.VLC"
     "SpotifyCheck" = "Spotify.Spotify"
+    "PowerToysCheck" = "Microsoft.PowerToys"
+    "VSCodeCheck" = "Microsoft.VisualStudioCode"
+    "PythonCheck" = "Python.Python.3.12"
+    "CplusplusCheck" = "Microsoft.VisualStudio.2019.BuildTools"
+    "NodejsCheck" = "OpenJS.NodeJS"
+    "GitCheck" = "Git.Git"
+    "JavaCheck" = "EclipseAdoptium.Temurin.17.JDK"
+    "VS2019Check" = "Microsoft.VisualStudio.2019.Community"
     "OfficeCheck" = "Microsoft.Office"
     "FileZillaCheck" = "FileZilla.FileZilla"
-    "AnyDeskCheck" = "AnyDeskSoftwareGmbH.AnyDesk"
-    "WhatsAppCheck" = "9NKSQGP7F2NH"
+    "GitHubDesktopCheck" = "GitHub.GitHubDesktop"
+    "NotepadppCheck" = "Notepad++.Notepad++"
     "LunarClientCheck" = "Moonsworth.LunarClient"
     "MinecraftLauncherCheck" = "Mojang.MinecraftLauncher"
-    "PowerToysCheck" = "Microsoft.PowerToys"
-    "GitHubDesktopCheck" = "GitHub.GitHubDesktop"
+    "SteamCheck" = "Valve.Steam"
+    "EpicCheck" = "EpicGames.EpicGamesLauncher"
+    "WinRARCheck" = "RARLab.WinRAR"
+    "SevenZipCheck" = "7zip.7zip"
+    "LibreOfficeCheck" = "TheDocumentFoundation.LibreOffice"
+    "ChromeCheck" = "Google.Chrome"
+    "FirefoxCheck" = "Mozilla.Firefox"
+    "BraveCheck" = "BraveSoftware.BraveBrowser"
+    "OperaGXCheck" = "Opera.OperaGX"
+    "OBSCheck" = "OBSProject.OBSStudio"
+    "CPUIDCheck" = "CPUID.CPU-Z"
 }
 
-# AcciÛn para instalar aplicaciones seleccionadas
+# Acci√≥n para instalar
 $installButton = $window.FindName("InstallButton")
 $installButton.Add_Click({
     foreach ($app in $appList.Keys) {
@@ -150,10 +191,11 @@ $installButton.Add_Click({
             Start-Process winget -ArgumentList "install --id $($appList[$app]) --silent --accept-package-agreements --accept-source-agreements" -NoNewWindow -Wait
         }
     }
-    Write-Host "InstalaciÛn completada." -ForegroundColor Green
+    Write-Host "Instalaci√≥n completada." -ForegroundColor Green
 })
 
-# AcciÛn para ejecutar el script de limpieza desde "extras"
+# Acciones para limpiar, desfragmentar, WSL igual que tu script original...
+# Acci√≥n para ejecutar el script de limpieza desde "extras"
 $cleanButton = $window.FindName("CleanButton")
 $cleanButton.Add_Click({
     $scriptPath = "$PSScriptRoot\extras\borrartemp.ps1"
@@ -165,7 +207,7 @@ $cleanButton.Add_Click({
     }
 })
 
-# AcciÛn para instalar WSL (Ubuntu)
+# Acci√≥n para instalar WSL (Ubuntu)
 $installWSLButton = $window.FindName("InstallWSLButton")
 $installWSLButton.Add_Click({
     Write-Host "Instalando WSL (Ubuntu)..." -ForegroundColor Yellow
@@ -173,7 +215,7 @@ $installWSLButton.Add_Click({
     Write-Host "WSL (Ubuntu) instalado correctamente." -ForegroundColor Green
 })
 
-# AcciÛn para borrar la distro de WSL
+# Acci√≥n para borrar la distro de WSL
 $cleanWSLButton = $window.FindName("CleanWSLButton")
 $cleanWSLButton.Add_Click({
     Write-Host "Borrando la distro de WSL..." -ForegroundColor Yellow
@@ -181,24 +223,36 @@ $cleanWSLButton.Add_Click({
     Write-Host "Distro de WSL eliminada." -ForegroundColor Green
 })
 
-# AcciÛn para ejecutar el script de desfragmentaciÛn
+# Acci√≥n para ejecutar el script de desfragmentaci√≥n
 $defragButton = $window.FindName("DefragButton")
 $defragButton.Add_Click({
     $defragScriptPath = "$PSScriptRoot\extras\Defragmentar.ps1"
     if (Test-Path $defragScriptPath) {
-        Write-Host "Ejecutando desfragmentaciÛn del disco..." -ForegroundColor Yellow
+        Write-Host "Ejecutando desfragmentaci√≥n del disco..." -ForegroundColor Yellow
         Start-Process -FilePath "powershell.exe" -ArgumentList "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "`"$defragScriptPath`"" -Wait
     } else {
-        Write-Host "El script de desfragmentaciÛn no fue encontrado en 'extras'." -ForegroundColor Red
+        Write-Host "El script de desfragmentaci√≥n no fue encontrado en 'extras'." -ForegroundColor Red
     }
 })
-# AcciÛn para habilitar el plan de energÌa de Alto Rendimiento
+# Acci√≥n para habilitar el plan de energ√≠a de Alto Rendimiento
 $highPerfButton = $window.FindName("HighPerfButton")
 $highPerfButton.Add_Click({
-    Write-Host "Habilitando el plan de energÌa de Alto Rendimiento..." -ForegroundColor Yellow
+    Write-Host "Habilitando el plan de energ√≠a de Alto Rendimiento..." -ForegroundColor Yellow
     Start-Process powershell -ArgumentList "-NoProfile", "-ExecutionPolicy", "Bypass", "-Command", "powercfg -setactive SCHEME_MIN" -NoNewWindow -Wait
-    Write-Host "Plan de energÌa de Alto Rendimiento activado." -ForegroundColor Green
+    Write-Host "Plan de energ√≠a de Alto Rendimiento activado." -ForegroundColor Green
 })
 
-# Mostrar la ventana
+
+# Acci√≥n para instalar dependencias de juegos
+$installGamingDepsButton = $window.FindName("InstallGamingDepsButton")
+$installGamingDepsButton.Add_Click({
+    Write-Host "Instalando dependencias de juegos..." -ForegroundColor Yellow
+    Start-Process winget -ArgumentList "install Microsoft.VCRedist.2015+.x64 --silent --accept-package-agreements --accept-source-agreements" -NoNewWindow -Wait
+    Start-Process winget -ArgumentList "install Microsoft.DirectX --silent --accept-package-agreements --accept-source-agreements" -NoNewWindow -Wait
+    Start-Process winget -ArgumentList "install Microsoft.DotNet.DesktopRuntime.6 --silent --accept-package-agreements --accept-source-agreements" -NoNewWindow -Wait
+    Write-Host "Dependencias de juegos instaladas correctamente." -ForegroundColor Green
+})
+
+
+# Mostrar ventana
 $window.ShowDialog()

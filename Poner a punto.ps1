@@ -71,7 +71,6 @@ $xaml = @"
                     <CheckBox Name="GitCheck" Content="Git" Margin="5"/>
                     <CheckBox Name="JavaCheck" Content="Java (JDK)" Margin="5"/>
                     <CheckBox Name="VS2019Check" Content="Visual Studio 2019" Margin="5"/>
-                    <CheckBox Name="OfficeCheck" Content="Microsoft Office" Margin="5"/>
                     <CheckBox Name="FileZillaCheck" Content="FileZilla" Margin="5"/>
                     <CheckBox Name="GitHubDesktopCheck" Content="GitHub Desktop" Margin="5"/>
                     <CheckBox Name="NotepadppCheck" Content="Notepad++" Margin="5"/>
@@ -88,6 +87,8 @@ $xaml = @"
                     <CheckBox Name="MinecraftLauncherCheck" Content="Minecraft Launcher" Margin="5"/>
                     <CheckBox Name="SteamCheck" Content="Steam" Margin="5"/>
                     <CheckBox Name="EpicCheck" Content="Epic Games" Margin="5"/>
+                    <CheckBox Name="GeForceNowCheck" Content="GeForce NOW" Margin="5"/>
+
                     
                 </WrapPanel>
             </StackPanel>
@@ -117,6 +118,9 @@ $xaml = @"
                     <CheckBox Name="OBSCheck" Content="OBS Studio" Margin="5"/>
                     <CheckBox Name="CPUIDCheck" Content="CPU-Z" Margin="5"/>
                     <CheckBox Name="LibreOfficeCheck" Content="LibreOffice" Margin="5"/>
+                    <CheckBox Name="AcrobatCheck" Content="Adobe Acrobat Reader" Margin="5"/>
+                    <CheckBox Name="WarpCheck" Content="Cloudflare Warp" Margin="5"/>
+                    <CheckBox Name="OfficeCheck" Content="Microsoft Office" Margin="5"/>
                 </WrapPanel>
             </StackPanel>
 
@@ -179,6 +183,10 @@ $appList = @{
     "OperaGXCheck" = "Opera.OperaGX"
     "OBSCheck" = "OBSProject.OBSStudio"
     "CPUIDCheck" = "CPUID.CPU-Z"
+    "AcrobatCheck" = "Adobe.Acrobat.Reader.64-bit"
+    "WarpCheck" = "Cloudflare.Warp"
+    "GeForceNowCheck" = "NVIDIA.GeForceNOW"
+
 }
 
 # Acción para instalar
